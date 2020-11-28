@@ -5,8 +5,22 @@
  */
 package lab6_davidzavala;
 
+import java.awt.ComponentOrientation;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.ListModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -39,8 +53,8 @@ public class Frame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         JB_SaveShow = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        TF_ShowName1 = new javax.swing.JTextField();
+        FTF_year = new javax.swing.JFormattedTextField();
+        TF_ShowName = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -62,14 +76,38 @@ public class Frame extends javax.swing.JFrame {
         Listas = new javax.swing.JDialog();
         CB_ListName = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JL_Series = new javax.swing.JList<>();
-        JB_Delete = new javax.swing.JButton();
+        JL_Shows = new javax.swing.JList<>();
+        JB_OpenList = new javax.swing.JButton();
         JB_Edit = new javax.swing.JButton();
         JB_New = new javax.swing.JButton();
         JB_Back = new javax.swing.JButton();
         JB_Exit1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         Fondo1 = new javax.swing.JLabel();
+        ShowsMod = new javax.swing.JDialog();
+        JB_SaveShowMod = new javax.swing.JButton();
+        TF_ShowNameMod = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        JS_PuntuacionMod = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
+        FTF_yearMod = new javax.swing.JFormattedTextField();
+        jLabel14 = new javax.swing.JLabel();
+        CB_TipoMod = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        CB_GeneroMod = new javax.swing.JComboBox<>();
+        Fondo4 = new javax.swing.JLabel();
+        ClaudistMod = new javax.swing.JDialog();
+        JB_SaveListMod = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        JL_Show4ListMod = new javax.swing.JList<>();
+        TF_ClaudilistNameMod = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        JB_SaveList1 = new javax.swing.JButton();
+        Fondo3 = new javax.swing.JLabel();
+        PUM_Shows = new javax.swing.JPopupMenu();
+        ShowMod = new javax.swing.JMenuItem();
+        ShowDel = new javax.swing.JMenuItem();
         JB_Crear = new javax.swing.JButton();
         JB_Archivos = new javax.swing.JButton();
         Exit = new javax.swing.JButton();
@@ -133,20 +171,20 @@ public class Frame extends javax.swing.JFrame {
         jLabel7.setText("Puntuacion");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, -1, 40));
 
-        jFormattedTextField1.setBackground(new java.awt.Color(102, 102, 102));
-        jFormattedTextField1.setForeground(new java.awt.Color(51, 51, 51));
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
-        jPanel1.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 100, 40));
+        FTF_year.setBackground(new java.awt.Color(102, 102, 102));
+        FTF_year.setForeground(new java.awt.Color(51, 51, 51));
+        FTF_year.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        jPanel1.add(FTF_year, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 80, 40));
 
-        TF_ShowName1.setBackground(new java.awt.Color(102, 102, 102));
-        TF_ShowName1.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
-        TF_ShowName1.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel1.add(TF_ShowName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 210, 40));
+        TF_ShowName.setBackground(new java.awt.Color(102, 102, 102));
+        TF_ShowName.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        TF_ShowName.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.add(TF_ShowName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 210, 40));
 
         jLabel8.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("Año");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, 30));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, 30));
 
         jLabel9.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(153, 153, 153));
@@ -169,17 +207,13 @@ public class Frame extends javax.swing.JFrame {
         CB_Genero.setBackground(new java.awt.Color(102, 102, 102));
         CB_Genero.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
         CB_Genero.setForeground(new java.awt.Color(0, 0, 0));
-        CB_Genero.setModel(new DefaultComboBoxModel()
-
-        );
+        CB_Genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comedia", "Romance", "Terror", "SyFy", "Suspenso", "Accion" }));
         jPanel1.add(CB_Genero, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 200, 40));
 
         CB_Tipo.setBackground(new java.awt.Color(102, 102, 102));
         CB_Tipo.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
         CB_Tipo.setForeground(new java.awt.Color(0, 0, 0));
-        CB_Tipo.setModel(new DefaultComboBoxModel()
-
-        );
+        CB_Tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anime", "Serie", "Documental", "Película" }));
         jPanel1.add(CB_Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 200, 40));
 
         jTabbedPane1.addTab("Serie", jPanel1);
@@ -211,6 +245,11 @@ public class Frame extends javax.swing.JFrame {
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 320));
 
         jToggleButton1.setText("Agregar a Lista");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, -1, 50));
 
         JB_SaveList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Save.png"))); // NOI18N
@@ -249,27 +288,37 @@ public class Frame extends javax.swing.JFrame {
         CB_ListName.setForeground(new java.awt.Color(204, 204, 204));
         CB_ListName.setModel(new DefaultComboBoxModel()
         );
-        Listas.getContentPane().add(CB_ListName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 210, 40));
+        Listas.getContentPane().add(CB_ListName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 210, 40));
 
-        JL_Series.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
-        JL_Series.setForeground(new java.awt.Color(204, 204, 204));
-        JL_Series.setModel(new DefaultListModel()
+        JL_Shows.setBackground(new java.awt.Color(51, 51, 51));
+        JL_Shows.setForeground(new java.awt.Color(204, 204, 204));
+        JL_Shows.setModel(new DefaultListModel()
         );
-        jScrollPane1.setViewportView(JL_Series);
+        jScrollPane1.setViewportView(JL_Shows);
 
-        Listas.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 770, 450));
+        Listas.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 770, 430));
 
-        JB_Delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
-        JB_Delete.setBorder(null);
-        JB_Delete.setBorderPainted(false);
-        JB_Delete.setContentAreaFilled(false);
-        Listas.getContentPane().add(JB_Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, 50));
+        JB_OpenList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Yellow file.png"))); // NOI18N
+        JB_OpenList.setBorder(null);
+        JB_OpenList.setBorderPainted(false);
+        JB_OpenList.setContentAreaFilled(false);
+        JB_OpenList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_OpenListActionPerformed(evt);
+            }
+        });
+        Listas.getContentPane().add(JB_OpenList, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, 50));
 
         JB_Edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
         JB_Edit.setBorder(null);
         JB_Edit.setBorderPainted(false);
         JB_Edit.setContentAreaFilled(false);
-        Listas.getContentPane().add(JB_Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, -1, 50));
+        JB_Edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_EditActionPerformed(evt);
+            }
+        });
+        Listas.getContentPane().add(JB_Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 50));
 
         JB_New.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Add.png"))); // NOI18N
         JB_New.setBorder(null);
@@ -313,6 +362,141 @@ public class Frame extends javax.swing.JFrame {
         Fondo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Listas.getContentPane().add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 640));
 
+        ShowsMod.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        JB_SaveShowMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Save.png"))); // NOI18N
+        JB_SaveShowMod.setBorder(null);
+        JB_SaveShowMod.setBorderPainted(false);
+        JB_SaveShowMod.setContentAreaFilled(false);
+        JB_SaveShowMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_SaveShowModActionPerformed(evt);
+            }
+        });
+        ShowsMod.getContentPane().add(JB_SaveShowMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, 60, 60));
+
+        TF_ShowNameMod.setBackground(new java.awt.Color(102, 102, 102));
+        TF_ShowNameMod.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        TF_ShowNameMod.setForeground(new java.awt.Color(51, 51, 51));
+        ShowsMod.getContentPane().add(TF_ShowNameMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 210, 40));
+
+        jLabel12.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel12.setText("Nombre");
+        ShowsMod.getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 40));
+
+        JS_PuntuacionMod.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        ShowsMod.getContentPane().add(JS_PuntuacionMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 70, 40));
+
+        jLabel13.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel13.setText("Puntuacion");
+        ShowsMod.getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, 40));
+
+        FTF_yearMod.setBackground(new java.awt.Color(102, 102, 102));
+        FTF_yearMod.setForeground(new java.awt.Color(51, 51, 51));
+        FTF_yearMod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        ShowsMod.getContentPane().add(FTF_yearMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 80, 40));
+
+        jLabel14.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel14.setText("Año");
+        ShowsMod.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, -1, 30));
+
+        CB_TipoMod.setBackground(new java.awt.Color(102, 102, 102));
+        CB_TipoMod.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        CB_TipoMod.setForeground(new java.awt.Color(0, 0, 0));
+        CB_TipoMod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anime", "Serie", "Documental", "Película" }));
+        ShowsMod.getContentPane().add(CB_TipoMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 200, 40));
+
+        jLabel15.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel15.setText("Tipo");
+        ShowsMod.getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, 40));
+
+        jLabel16.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel16.setText("Genero");
+        ShowsMod.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, 40));
+
+        CB_GeneroMod.setBackground(new java.awt.Color(102, 102, 102));
+        CB_GeneroMod.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        CB_GeneroMod.setForeground(new java.awt.Color(0, 0, 0));
+        CB_GeneroMod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comedia", "Romance", "Terror", "SyFy", "Suspenso", "Accion" }));
+        ShowsMod.getContentPane().add(CB_GeneroMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 200, 40));
+
+        Fondo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/geek_gamer.png"))); // NOI18N
+        Fondo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ShowsMod.getContentPane().add(Fondo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 500));
+
+        ClaudistMod.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        JB_SaveListMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Save.png"))); // NOI18N
+        JB_SaveListMod.setBorder(null);
+        JB_SaveListMod.setBorderPainted(false);
+        JB_SaveListMod.setContentAreaFilled(false);
+        JB_SaveListMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_SaveListModActionPerformed(evt);
+            }
+        });
+        ClaudistMod.getContentPane().add(JB_SaveListMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 60, 60));
+
+        JL_Show4ListMod.setBackground(new java.awt.Color(102, 102, 102));
+        JL_Show4ListMod.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        JL_Show4ListMod.setForeground(new java.awt.Color(51, 51, 51));
+        JL_Show4ListMod.setModel(new DefaultListModel()
+        );
+        JL_Show4ListMod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JL_Show4ListModMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(JL_Show4ListMod);
+
+        ClaudistMod.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 300, 320));
+
+        TF_ClaudilistNameMod.setBackground(new java.awt.Color(102, 102, 102));
+        TF_ClaudilistNameMod.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        TF_ClaudilistNameMod.setForeground(new java.awt.Color(51, 51, 51));
+        ClaudistMod.getContentPane().add(TF_ClaudilistNameMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 210, 40));
+
+        jLabel17.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel17.setText("Nombre");
+        ClaudistMod.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 90));
+
+        JB_SaveList1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Save.png"))); // NOI18N
+        JB_SaveList1.setBorder(null);
+        JB_SaveList1.setBorderPainted(false);
+        JB_SaveList1.setContentAreaFilled(false);
+        JB_SaveList1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_SaveList1ActionPerformed(evt);
+            }
+        });
+        ClaudistMod.getContentPane().add(JB_SaveList1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 60, 60));
+
+        Fondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/geek_gamer.png"))); // NOI18N
+        Fondo3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ClaudistMod.getContentPane().add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 510));
+
+        ShowMod.setText("Modifcar Programa");
+        ShowMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowModActionPerformed(evt);
+            }
+        });
+        PUM_Shows.add(ShowMod);
+
+        ShowDel.setText("Eliminar Programa");
+        ShowDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowDelActionPerformed(evt);
+            }
+        });
+        PUM_Shows.add(ShowDel);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -352,8 +536,8 @@ public class Frame extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Courier New", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setText("Nueva Lista");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, 70));
+        jLabel4.setText("Crear");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, 70));
 
         jLabel5.setFont(new java.awt.Font("Courier New", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
@@ -427,13 +611,160 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_JB_NewActionPerformed
 
     private void JB_SaveListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_SaveListActionPerformed
-        // TODO add your handling code here:
+        try {
+            DefaultListModel list2 = (DefaultListModel) JL_Show4List.getModel();
+            ArrayList<Show> Array = new ArrayList();
+            Claudilist Cl = new Claudilist();
+            for (int i = 0; i < JL_Show4List.getLastVisibleIndex() + 1; i++) {
+                Array.add((Show) list2.get(i));
+            }
+            Claudilist Clau = new Claudilist(TF_ClaudilistName.getText(), Array);
+            Cl.WriteFile(Clau);
+            TF_ClaudilistName.setText("");
+            for (int i = 0; i < JL_Show4List.getLastVisibleIndex() + 1; i++) {
+                list2.remove(i);
+            }
+            JOptionPane.showMessageDialog(null, "Claudilist Guardada.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
     }//GEN-LAST:event_JB_SaveListActionPerformed
 
     private void JB_SaveShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_SaveShowActionPerformed
-        // TODO add your handling code here:
+        try {
+            Show show = new Show(TF_ShowName.getText(), Integer.parseInt(JS_Puntuacion.getValue().toString()), Integer.parseInt(FTF_year.getText()), CB_Tipo.getItemAt(CB_Tipo.getSelectedIndex()), CB_Tipo.getItemAt(CB_Genero.getSelectedIndex()));
+            DefaultListModel list1 = (DefaultListModel) JL_AllShows.getModel();
+            list1.addElement((Show) show);
+            TF_ShowName.setText("");
+            JS_Puntuacion.setValue(5);
+            FTF_year.setText("");
+            CB_Tipo.setSelectedIndex(0);
+            CB_Tipo.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(null, "Show aregado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
     }//GEN-LAST:event_JB_SaveShowActionPerformed
-    
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        try {
+            DefaultListModel list1 = (DefaultListModel) JL_AllShows.getModel();
+            DefaultListModel list2 = (DefaultListModel) JL_Show4List.getModel();
+            if (JL_AllShows.getSelectedIndex() < 0) {
+                JOptionPane.showMessageDialog(null, "Elija una Clase");
+            } else {
+                list2.addElement((Show) list1.get(JL_AllShows.getSelectedIndex()));
+                list1.remove(JL_AllShows.getSelectedIndex());
+            }
+            JOptionPane.showMessageDialog(null, "Show aregado a Claudilist.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void JB_SaveList1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_SaveList1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JB_SaveList1ActionPerformed
+
+    private void JB_SaveShowModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_SaveShowModActionPerformed
+        try {
+            DefaultListModel model = (DefaultListModel) JL_Shows.getModel();
+            Show temp = null;
+            temp = new Show(TF_ShowNameMod.getText(), Integer.parseInt((String) JS_PuntuacionMod.getValue()), Integer.parseInt(FTF_yearMod.getText()), (String) CB_TipoMod.getSelectedItem(), (String) CB_GeneroMod.getSelectedItem());
+            model.set(JL_Shows.getSelectedIndex(), temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
+    }//GEN-LAST:event_JB_SaveShowModActionPerformed
+
+    private void JB_SaveListModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_SaveListModActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JB_SaveListModActionPerformed
+
+    private void JL_Show4ListModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JL_Show4ListModMouseClicked
+        try {
+            if (evt.isMetaDown()) {
+                PUM_Shows.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
+    }//GEN-LAST:event_JL_Show4ListModMouseClicked
+
+    private void ShowModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowModActionPerformed
+        ShowsMod.pack();
+        ShowsMod.setLocationRelativeTo(null);
+        ShowsMod.setVisible(true);
+    }//GEN-LAST:event_ShowModActionPerformed
+
+    private void ShowDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowDelActionPerformed
+        try {
+            DefaultListModel model = (DefaultListModel) JL_Shows.getModel();
+            model.remove(JL_Shows.getSelectedIndex());
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
+    }//GEN-LAST:event_ShowDelActionPerformed
+
+    private void JB_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EditActionPerformed
+        ClaudistMod.pack();
+        ClaudistMod.setLocationRelativeTo(null);
+        ClaudistMod.setVisible(true);
+    }//GEN-LAST:event_JB_EditActionPerformed
+
+    private void ListInit(File file) {
+        try {
+            Scanner sc = null;
+            DefaultListModel model = (DefaultListModel) JL_Shows.getModel();
+            sc = new Scanner(file);
+            while (sc.hasNext()) {
+
+                while (sc.hasNext()) {
+                    String next = sc.next();
+                    String[] Next = sc.nextLine().split("\\|");
+                    String Nom = Next[0];
+                    String Pun = Next[1];
+                    String Ano = Next[2];
+                    String tip = Next[3];
+                    String Gen = Next[4];
+                    Show Line;
+                    Line = new Show(Nom, Integer.parseInt(Pun), Integer.parseInt(Ano), tip, Gen);
+                    model.addElement(Line);
+                }
+                JL_Shows.setModel(model);
+            }
+            sc.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error en el Reader.");
+        }
+    }
+
+    private void JB_OpenListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_OpenListActionPerformed
+        try {
+            Claudilist C = new Claudilist();
+            JFileChooser filech = new JFileChooser("./Files");
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Text File", "txt");
+            filech.setFileFilter(filtro);
+            int selected = filech.showOpenDialog(this);
+            File claudilist = null;
+            FileReader FR = null;
+            BufferedReader BR = null;
+            if (selected == JFileChooser.APPROVE_OPTION) {
+                claudilist = filech.getSelectedFile();
+                ListInit(claudilist);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
+    }//GEN-LAST:event_JB_OpenListActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -471,36 +802,59 @@ public class Frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CB_Genero;
+    private javax.swing.JComboBox<String> CB_GeneroMod;
     private javax.swing.JComboBox<String> CB_ListName;
     private javax.swing.JComboBox<String> CB_Tipo;
+    private javax.swing.JComboBox<String> CB_TipoMod;
+    private javax.swing.JDialog ClaudistMod;
     private javax.swing.JDialog Create;
     private javax.swing.JButton Exit;
     private javax.swing.JButton Exit2;
+    private javax.swing.JFormattedTextField FTF_year;
+    private javax.swing.JFormattedTextField FTF_yearMod;
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Fondo1;
     private javax.swing.JLabel Fondo2;
+    private javax.swing.JLabel Fondo3;
+    private javax.swing.JLabel Fondo4;
     private javax.swing.JButton JB_Archivos;
     private javax.swing.JButton JB_Back;
     private javax.swing.JButton JB_Back1;
     private javax.swing.JButton JB_Crear;
-    private javax.swing.JButton JB_Delete;
     private javax.swing.JButton JB_Edit;
     private javax.swing.JButton JB_Exit1;
     private javax.swing.JButton JB_New;
     private javax.swing.JButton JB_New1;
+    private javax.swing.JButton JB_OpenList;
     private javax.swing.JButton JB_SaveList;
+    private javax.swing.JButton JB_SaveList1;
+    private javax.swing.JButton JB_SaveListMod;
     private javax.swing.JButton JB_SaveShow;
+    private javax.swing.JButton JB_SaveShowMod;
     private javax.swing.JList<String> JL_AllShows;
-    private javax.swing.JList<String> JL_Series;
     private javax.swing.JList<String> JL_Show4List;
+    private javax.swing.JList<String> JL_Show4ListMod;
+    private javax.swing.JList<String> JL_Shows;
     private javax.swing.JSpinner JS_Puntuacion;
+    private javax.swing.JSpinner JS_PuntuacionMod;
     private javax.swing.JDialog Listas;
+    private javax.swing.JPopupMenu PUM_Shows;
+    private javax.swing.JMenuItem ShowDel;
+    private javax.swing.JMenuItem ShowMod;
+    private javax.swing.JDialog ShowsMod;
     private javax.swing.JTextField TF_ClaudilistName;
-    private javax.swing.JTextField TF_ShowName1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JTextField TF_ClaudilistNameMod;
+    private javax.swing.JTextField TF_ShowName;
+    private javax.swing.JTextField TF_ShowNameMod;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -514,6 +868,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
